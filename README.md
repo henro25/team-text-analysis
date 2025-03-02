@@ -3,7 +3,21 @@ A team communication analysis tool using [CATA (Computer-Aided Text Analysis)](h
 
 ## Repo Structure
 
-team-text-analysis/ │── src/ │ │── data/ │ │ │── analysis_results/ # Output folder for processed results │ │ │── transcripts/ # Raw transcripts (group-wise) │ │ │── cata-dict.xlsx # CATA dictionary for word classification │ │ │── CATA.pdf # Research paper describing the CATA framework │ │── analyze_text.py # Main script for analyzing transcripts │ │── analyze_text_test.ipynb # Jupyter notebook for testing analysis │── venv/ # Virtual environment (optional) │── .gitignore # Ignore unnecessary files │── requirements.txt # Required dependencies │── README.md # Project documentation
+```plaintext
+team-text-analysis/
+├── src/
+│   ├── data/
+│   │   ├── analysis_results/      # Output folder for processed results
+│   │   ├── transcripts/           # Raw transcripts (group-wise)
+│   │   ├── cata-dict.xlsx         # CATA dictionary for word classification
+│   │   └── CATA.pdf               # Research paper describing the CATA framework
+│   ├── analyze_text.py            # Main script for analyzing transcripts
+│   └── analyze_text_test.ipynb    # Jupyter notebook for testing analysis
+├── venv/                          # Virtual environment (optional)
+├── .gitignore                     # Ignore unnecessary files
+├── requirements.txt               # Required dependencies
+└── README.md                      # Project documentation
+```
 
 ## Setup
 
