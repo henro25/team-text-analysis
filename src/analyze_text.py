@@ -7,7 +7,7 @@ from collections import defaultdict
 
 dict_file = "src/data/cata-dict.xlsx"
 
-def analyze_text(transcript_path, result_path):
+def analyze_text(transcript_path, output_speaker_dir, result_path):
     # Load transcription data and CATA dictionary
     transcript_df = pd.read_csv(transcript_path)
     dictionary_df = pd.read_excel(dict_file, sheet_name='Marks_v2')
@@ -103,6 +103,14 @@ def analyze_text(transcript_path, result_path):
     speaker_time_series_df = pd.DataFrame(speaker_time_series)
     speaker_time_series_df.sort_values(by=['window_start','speaker'], inplace=True)
     
+    # Output each individual speaker's time series as a separate CSV file
+    for speaker in speaker_time_series_df['speaker'].unique():
+        df_single = speaker_time_series_df[speaker_time_series_df['speaker'] == speaker]
+        # Build a filename for this speaker
+        output_filename = f"{output_speaker_dir}/{speaker}_time_series.csv"
+        df_single.to_csv(output_filename, index=False)
+        print(f"Saved {output_filename}")
+    
     # We can group by (window_start, window_end) and sum across speakers
     speaker_agg = lambda x: ', '.join(sorted(x.unique()))
 
@@ -150,9 +158,11 @@ def main():
 
             # Define the output file path
             output_path = os.path.join(output_group_dir, f"{prefix}_group_text_analysis.csv")
+            output_speaker_dir = os.path.join(output_group_dir, f"{prefix}_speaker_time_series")
+            os.makedirs(output_speaker_dir, exist_ok=True)
 
             # Call the text analysis function
-            analyze_text(transcript_path, output_path)
+            analyze_text(transcript_path, output_speaker_dir, output_path)
 
     print("Processing complete!")
 
