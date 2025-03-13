@@ -15,6 +15,13 @@ def analyze_text(transcript_path, output_speaker_dir, result_path):
     # only save the words and diction_code columns
     dictionary_df = dictionary_df[['words', 'diction_code']]
     
+    # Convert 'start' and 'end' columns to numeric, forcing non-numeric values to NaN
+    transcript_df['start'] = pd.to_numeric(transcript_df['start'], errors='coerce')
+    transcript_df['end'] = pd.to_numeric(transcript_df['end'], errors='coerce')
+
+    # Drop rows where conversion failed (if any)
+    transcript_df.dropna(subset=['start', 'end'], inplace=True)
+    
     # Extract category-wise words, handling wildcards and context-based words
     category_words = defaultdict(set)  # Stores direct words (key: category, value: set of words)
     category_patterns = defaultdict(list)  # Stores regex patterns and context-based words
@@ -138,23 +145,18 @@ def main():
 
     # Loop through each group folder for Groups 1 to 12
     for i in range(1, num_groups + 1):
-        group_dir = os.path.join(base_dir, f"group {i}")
         output_group_dir = os.path.join(output_base_dir, f"group_{i}")
-        
-        if not os.path.exists(group_dir):
-            print(f"Skipping {group_dir}, does not exist.")
-            continue
         
         # Ensure output group directory exists
         os.makedirs(output_group_dir, exist_ok=True)
 
-        # Find all transcript files ending with "_word_level_transcriptions.csv"
-        transcript_files = glob.glob(os.path.join(group_dir, "*_word_level_transcriptions.csv"))
+        # Find all transcript files ending with "_transcriptions.csv"
+        transcript_files = glob.glob(os.path.join(base_dir, f"group{i}_transcriptions.csv"))
 
         for transcript_path in transcript_files:
-            # Extract the prefix (first word before "_word_level_transcriptions")
+            # Extract the prefix (first word before "_transcriptions")
             filename = os.path.basename(transcript_path)
-            prefix = filename.split("_word_level_transcriptions")[0]
+            prefix = filename.split("_transcriptions")[0]
 
             # Define the output file path
             output_path = os.path.join(output_group_dir, f"{prefix}_group_text_analysis.csv")
