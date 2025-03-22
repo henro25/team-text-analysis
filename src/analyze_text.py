@@ -3,11 +3,13 @@ import numpy as np
 import re
 import os
 import glob
+import json
 from collections import defaultdict
 
 dict_file = "src/data/cata-dict.xlsx"
+json_file_path = "src/data/task_cutoffs.json"
 
-def analyze_text(transcript_path, output_speaker_dir, result_path):
+def analyze_text(transcript_path, output_speaker_dir, result_path, task_cutoff):
     # Load transcription data and CATA dictionary
     transcript_df = pd.read_csv(transcript_path)
     dictionary_df = pd.read_excel(dict_file, sheet_name='Marks_v2')
@@ -21,6 +23,9 @@ def analyze_text(transcript_path, output_speaker_dir, result_path):
 
     # Drop rows where conversion failed (if any)
     transcript_df.dropna(subset=['start', 'end'], inplace=True)
+    
+    # Only keep rows between start and end cutoff times
+    transcript_df = transcript_df[(transcript_df['start'] >= task_cutoff['start']) & (transcript_df['end'] <= task_cutoff['end'])]
     
     # Extract category-wise words, handling wildcards and context-based words
     category_words = defaultdict(set)  # Stores direct words (key: category, value: set of words)
@@ -142,29 +147,32 @@ def main():
     
     # Ensure output directories exist
     os.makedirs(output_base_dir, exist_ok=True)
+    
+    # Open and load the task cutoff times JSON file
+    with open(json_file_path, 'r') as f:
+        task_cutoffs = json.load(f)
 
     # Loop through each group folder for Groups 1 to 12
     for i in range(1, num_groups + 1):
         output_group_dir = os.path.join(output_base_dir, f"group_{i}")
-        
-        # Ensure output group directory exists
-        os.makedirs(output_group_dir, exist_ok=True)
 
-        # Find all transcript files ending with "_transcriptions.csv"
+        # Find the corresponding group transcript file ending with "_transcriptions.csv"
         transcript_files = glob.glob(os.path.join(base_dir, f"group{i}_transcriptions.csv"))
 
-        for transcript_path in transcript_files:
+        if transcript_files:
             # Extract the prefix (first word before "_transcriptions")
+            transcript_path = transcript_files[0]
             filename = os.path.basename(transcript_path)
             prefix = filename.split("_transcriptions")[0]
 
             # Define the output file path
+            os.makedirs(output_group_dir, exist_ok=True)
             output_path = os.path.join(output_group_dir, f"{prefix}_group_text_analysis.csv")
             output_speaker_dir = os.path.join(output_group_dir, f"{prefix}_speaker_time_series")
             os.makedirs(output_speaker_dir, exist_ok=True)
 
             # Call the text analysis function
-            analyze_text(transcript_path, output_speaker_dir, output_path)
+            analyze_text(transcript_path, output_speaker_dir, output_path, task_cutoffs[f"group {i}"])
 
     print("Processing complete!")
 
