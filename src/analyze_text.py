@@ -67,7 +67,7 @@ def analyze_text(transcript_path, output_speaker_dir, result_path, task_cutoff):
         # Filter transcript rows overlapping this window
         # Condition: utterance overlaps if start < window_end and end >= window_start
         df_window = transcript_df[
-            (transcript_df['start'] < window_end) &
+            (transcript_df['end'] < window_end) &
             (transcript_df['end']   >= window_start)
         ]
         
