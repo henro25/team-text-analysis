@@ -1,2 +1,4 @@
 venv/
 src/data/transcripts/
+pmerq-scoring/survey.xlsx
+pmerq-scoring/pmerq-survey-scores.csv
