@@ -156,14 +156,14 @@ def main():
     for i in range(1, num_groups + 1):
         output_group_dir = os.path.join(output_base_dir, f"group_{i}")
 
-        # Find the corresponding group transcript file ending with "_transcriptions.csv"
-        transcript_files = glob.glob(os.path.join(base_dir, f"group{i}_transcriptions.csv"))
+        # Find the corresponding group transcript file ending with "_word_level.csv"
+        transcript_files = glob.glob(os.path.join(base_dir, f"group{i}_word_level.csv"))
 
         if transcript_files:
-            # Extract the prefix (first word before "_transcriptions")
+            # Extract the prefix (first word before "_word_level")
             transcript_path = transcript_files[0]
             filename = os.path.basename(transcript_path)
-            prefix = filename.split("_transcriptions")[0]
+            prefix = filename.split("_word_level")[0]
 
             # Define the output file path
             os.makedirs(output_group_dir, exist_ok=True)
