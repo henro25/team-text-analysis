@@ -1,0 +1,168 @@
+\documentclass{article}
+\usepackage{geometry} % To modify page margins
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}  % For better formatting of math equations
+\usepackage{amsfonts} % For using bold math symbols like \mathbf
+\usepackage{amssymb}  % For additional math symbols, if needed
+\usepackage{amsthm}   % For theorems, definitions, etc.
+\usepackage{hyperref} % For hyperlinks in the document
+\usepackage{parskip} % Adds space between paragraphs
+\usepackage{booktabs}   % prettier tables
+\usepackage{caption}    % for table captions
+\usepackage{makecell}           % for \makecell
+
+% \hypersetup{
+%     colorlinks=true,
+%     linkcolor=blue,
+%     filecolor=magenta,      
+%     urlcolor=cyan,
+%     pdftitle={Overleaf Example},
+%     pdfpagemode=FullScreen,
+% }
+
+\geometry{top=1in, bottom=1in, left=0.5in, right=1in} % Adjust margins here
+
+
+\begin{document}
+
+\begin{table}
+\caption{Participant demographics}
+\label{tab:demographics}
+\begin{tabular}{llllllrl}
+\toprule
+ParticipantID & Age Range & Gender & Race & Education & Familiarity & Group & Device \\
+\midrule
+R\_3n3jcxk5gzQUj51 & 18-24 & Male & White & High school & 4 & 1 & HCILab1 \\
+R\_1PgOiW6dxGDgBwB & 18-24 & Male & Asian & College & 3 & 1 & HCILab2 \\
+R\_865YxVqKosNjcdf & 25-34 & Male & Asian & Professional degree & 2 & 1 & CSL\_LabPC \\
+R\_85MTBgBEA0MfUhb & 18-24 & Male & Asian & Graduate degree & 2 & 1 & CSL\_Laptop \\
+R\_5oZ7WckJpLcexwP & 18-24 & Male & Asian & Professional degree & 3 & 2 & HCILab2 \\
+R\_6YuNtoM4ihsHh6h & 18-24 & Male & White & High school & 2 & 2 & HCILab1 \\
+R\_207DqscZCOvzhaB & 25-34 & Female & White & Graduate degree & 2 & 2 & CSL\_LabPC \\
+R\_2LGyH5rtoDSTN29 & 25-34 & Male & Asian & Professional degree & 2 & 2 & CSL\_Laptop \\
+R\_7LTm1hYyDqLwvM5 & 18-24 & Male & Asian & Graduate degree & 2 & 3 & HCILab1 \\
+R\_8S3BMvJviSME521 & 18-24 & Male & Asian & High school & 1 & 3 & CSL\_LabPC \\
+R\_1hR6g7wETs7k8aA & 18-24 & Male & Asian & High school & 2 & 3 & HCILab2 \\
+R\_2sotPCAUKSZ8SuB & 35-44 & Female & White & College & 3 & 3 & CSL\_Laptop \\
+R\_839Koc4sOixUtjO & 18-24 & Female & White & College & 2 & 4 & CSL\_LabPC \\
+R\_6ik7hlrS0Y6wamp & 18-24 & Male & White & College & 3 & 4 & HCILab1 \\
+R\_8txHfvBvonMlmLD & 18-24 & Female & Other & High school & 3 & 4 & CSL\_Laptop \\
+R\_3DuAH4I5dlX5Pxv & 18-24 & Female & Asian & Professional degree & 1 & 4 & HCILab2 \\
+R\_2uqWof8LAqnbBQd & 25-34 & Female & Asian & Professional degree & 3 & 5 & CSL\_Laptop \\
+R\_1nVEP2idiWV6k0x & 18-24 & Other & Asian & High school & 4 & 5 & HCILab2 \\
+R\_5AFR45OgA1U7Tih & 18-24 & Male & Asian & Graduate degree & 4 & 5 & HCILab1 \\
+R\_5ncoOJye2thvLQK & 18-24 & Male & Asian & College & 3 & 6 & HCILab1 \\
+R\_2QEJbtknRWAFIna & 18-24 & Male & Asian & Graduate degree & 2 & 6 & CSL\_Laptop \\
+R\_5QKHTvZXGsz88bv & 18-24 & Male & White & High school & 3 & 6 & HCILab2 \\
+R\_2Dc1FaB5zQarntk & 25-34 & Female & Asian & Graduate degree & 1 & 6 & CSL\_LabPC \\
+R\_8Jg7wrGzOSZI57r & 18-24 & Male & Asian & Graduate degree & 2 & 7 & CSL\_Laptop \\
+R\_5rihp7tYxo4cikp & 18-24 & Male & White & High school & 3 & 7 & HCILab2 \\
+R\_7jP5W4EZSbwjlhn & 25-34 & Male & Asian & College & 2 & 7 & HCILab1 \\
+R\_29G09nTqHpkFC9P & 18-24 & Male & Other & Graduate degree & 2 & 7 & CSL\_LabPC \\
+R\_8KT4VqDz3jREje3 & 18-24 & Female & White & High school & 3 & 8 & CSL\_Laptop \\
+R\_7VjNhKtdoF3JX56 & 18-24 & Male & White & High school & 4 & 8 & HCILab1 \\
+R\_1DqAAT2AQvj7Yud & 25-34 & Male & Asian & Professional degree & 2 & 8 & HCILab2 \\
+R\_2q4kC691PjzpeDR & 18-24 & Female & Asian & College & 3 & 8 & CSL\_LabPC \\
+R\_8aCU2B4nwcyUpEe & 18-24 & Female & Asian & Graduate degree & 1 & 9 & CSL\_Laptop \\
+R\_5ypEl8FVl5gr6lB & 25-34 & Male & White & Graduate degree & 4 & 9 & HCILab1 \\
+R\_7erfgegeIsghiN1 & 25-34 & Female & White & Graduate degree & 3 & 9 & HCILab2 \\
+R\_5Gw9Ne3QojNMcSX & 25-34 & Male & Asian & Professional degree & 2 & 10 & HCILab2 \\
+R\_8Evgc7CFeEcLGJY & 25-34 & Female & Asian & Professional degree & 1 & 10 & CSL\_Laptop \\
+R\_3iBW6RrQRhkIDOo & 25-34 & Male & Asian & College & 2 & 10 & HCILab1 \\
+R\_6dnyFUzMOE20p4e & 25-34 & Female & Other & Graduate degree & 2 & 11 & HCILab1 \\
+R\_670Oc16oFsbEywp & 18-24 & Male & Asian & Graduate degree & 3 & 11 & HCILab2 \\
+- & - & - & nan & - & 1 & 11 & CSL\_Laptop \\
+R\_1wcarhM0eHMnWvf & 18-24 & Non-binary & White & High school & 3 & 12 & HCILab2 \\
+R\_5nkICnyw7iLOBUL & 18-24 & Male & Other & High school & 3 & 12 & HCILab1 \\
+R\_8oWQ4BjakEtaQOB & 25-34 & Female & White & College & 4 & 12 & CSL\_LabPC \\
+- & - & - & nan & - & 2 & 12 & CSL\_Laptop \\
+\bottomrule
+\end{tabular}
+\end{table}
+    
+    
+
+
+\begin{table}
+\caption{Overall mean ± SD by emotional regulation stage}
+\centering
+\begin{tabular}{ll}
+\toprule
+    & Mean $\pm$ SD \\
+\midrule
+Confront Unpleasant Situations & 3.60 ± 1.05 \\
+Avoid Unpleasant Situations & 4.17 ± 1.00 \\
+Resolve Conflicts & 4.19 ± 0.59 \\
+Avoid Conflicts & 3.76 ± 0.87 \\
+Focus Elsewhere & 3.76 ± 0.90 \\
+Cognitively Distract & 4.09 ± 0.96 \\
+Consider Benefits & 4.24 ± 0.88 \\
+Reduce Importance & 4.28 ± 0.85 \\
+Support by Emotion Sharing & 3.99 ± 1.17 \\
+Expressive Suppression & 3.94 ± 0.92 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+%––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––%
+\begin{table}[ht]
+\centering
+\caption{Mean \(\pm\) SD by group (1–12), part I}
+\label{tab:group_stats_part1}
+\begin{tabular}{l*{5}{p{2.5cm}}}
+\toprule
+   Group  & 
+\makecell[l]{Confront \\ Unpleasant \\ Situations} & 
+\makecell[l]{Avoid \\ Unpleasant \\ Situations} & 
+\makecell[l]{Resolve \\ Conflicts} & 
+\makecell[l]{Avoid \\ Conflicts} & 
+\makecell[l]{Focus \\ Elsewhere} \\
+\midrule
+1  & 4.00 ± 0.82 & 3.17 ± 0.78 & 4.25 ± 0.35 & 2.80 ± 0.43 & 3.06 ± 0.66 \\
+2  & 3.58 ± 0.14 & 3.56 ± 1.07 & 3.50 ± 0.50 & 3.20 ± 0.87 & 3.50 ± 0.00 \\
+3  & 3.25 ± 1.37 & 4.62 ± 1.04 & 3.96 ± 0.50 & 4.50 ± 0.82 & 4.50 ± 0.98 \\
+4  & 3.56 ± 0.69 & 4.50 ± 0.41 & 4.38 ± 0.64 & 3.65 ± 0.34 & 3.94 ± 1.39 \\
+5  & 4.00 ± 1.00 & 4.39 ± 0.79 & 4.50 ± 0.87 & 3.40 ± 1.20 & 3.42 ± 1.38 \\
+6  & 4.69 ± 0.75 & 4.25 ± 0.62 & 4.42 ± 0.10 & 4.30 ± 0.35 & 4.44 ± 0.52 \\
+7  & 3.25 ± 1.17 & 4.88 ± 0.52 & 4.21 ± 0.53 & 4.35 ± 0.34 & 3.94 ± 0.94 \\
+8  & 3.25 ± 1.31 & 4.33 ± 1.53 & 4.42 ± 0.75 & 4.05 ± 1.00 & 3.06 ± 1.25 \\
+9  & 3.25 ± 1.25 & 3.94 ± 0.59 & 4.06 ± 1.23 & 4.60 ± 0.35 & 3.92 ± 0.63 \\
+10 & 3.67 ± 0.95 & 3.06 ± 0.98 & 4.33 ± 0.17 & 3.27 ± 0.12 & 3.58 ± 0.58 \\
+11 & 4.62 ± 0.88 & 3.92 ± 1.53 & 4.50 ± 0.24 & 2.30 ± 0.99 & 4.00 ± 0.35 \\
+12 & 2.33 ± 1.01 & 5.17 ± 0.73 & 3.72 ± 0.51 & 3.87 ± 0.46 & 3.67 ± 0.14 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––%
+\begin{table}[ht]
+\centering
+\caption{Mean \(\pm\) SD by group (1–12), part II}
+\label{tab:group_stats_part2}
+\begin{tabular}{l*{5}{p{2.5cm}}}
+\toprule
+Group    & 
+\makecell[l]{Cognitively \\ Distract} & 
+\makecell[l]{Consider \\ Benefits} & 
+\makecell[l]{Reduce \\ Importance} & 
+\makecell[l]{Support by \\ Emotion \\ Sharing} & 
+\makecell[l]{Expressive \\ Suppression} \\
+\midrule
+1  & 2.95 ± 0.77 & 4.46 ± 0.46 & 3.58 ± 1.29 & 3.67 ± 0.98 & 3.42 ± 0.57 \\
+2  & 4.33 ± 0.76 & 3.50 ± 0.29 & 3.67 ± 0.33 & 4.56 ± 1.50 & 3.56 ± 0.51 \\
+3  & 4.70 ± 1.18 & 4.21 ± 0.93 & 4.92 ± 0.88 & 4.00 ± 1.41 & 4.42 ± 0.57 \\
+4  & 3.95 ± 0.66 & 4.71 ± 1.27 & 4.67 ± 0.82 & 3.92 ± 0.79 & 3.25 ± 1.23 \\
+5  & 4.60 ± 0.87 & 4.44 ± 0.48 & 4.67 ± 1.20 & 3.22 ± 1.84 & 4.56 ± 0.69 \\
+6  & 4.30 ± 0.38 & 4.54 ± 0.16 & 4.50 ± 0.58 & 4.92 ± 0.50 & 3.75 ± 0.69 \\
+7  & 4.35 ± 0.70 & 4.08 ± 0.73 & 4.67 ± 0.38 & 4.58 ± 1.13 & 4.33 ± 0.54 \\
+8  & 3.85 ± 1.28 & 4.17 ± 1.22 & 4.17 ± 0.64 & 3.33 ± 1.12 & 4.50 ± 0.69 \\
+9  & 3.93 ± 0.99 & 4.61 ± 0.35 & 4.56 ± 0.69 & 4.33 ± 1.67 & 3.67 ± 2.00 \\
+10 & 3.80 ± 0.87 & 4.50 ± 0.67 & 3.89 ± 0.51 & 4.67 ± 0.33 & 4.11 ± 0.69 \\
+11 & 3.20 ± 1.98 & 4.92 ± 0.59 & 3.83 ± 1.65 & 4.00 ± 0.00 & 3.83 ± 1.65 \\
+12 & 5.00 ± 0.20 & 2.67 ± 1.01 & 3.89 ± 0.77 & 2.56 ± 0.51 & 3.89 ± 1.17 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
