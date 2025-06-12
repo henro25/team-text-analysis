@@ -25,7 +25,8 @@ def analyze_text(transcript_path, output_speaker_dir, result_path, task_cutoff):
     transcript_df.dropna(subset=['start', 'end'], inplace=True)
     
     # Only keep rows between start and end cutoff times
-    transcript_df = transcript_df[(transcript_df['start'] >= task_cutoff['start']) & (transcript_df['end'] <= task_cutoff['end'])]
+    transcript_df = transcript_df[
+        (transcript_df['start'] >= task_cutoff['start']) & (transcript_df['end'] <= task_cutoff['end'])]
     
     # Extract category-wise words, handling wildcards and context-based words
     category_words = defaultdict(set)  # Stores direct words (key: category, value: set of words)
@@ -53,10 +54,12 @@ def analyze_text(transcript_path, output_speaker_dir, result_path, task_cutoff):
     # Define window params
     window_size = 30    # 30-second window
     step_size   = 15    # 15-second overlap step
-    max_time    = transcript_df['end'].max()
+
+    # Participant devices
+    participant_speakers = ["HCILab1", "HCILab2", "CSL_Laptop", "CSL_LabPC"]
     
     # Create time series data structures
-    time_points = np.arange(0, max_time, step_size)
+    time_points = np.arange(task_cutoff['start'], task_cutoff['end'], step_size)
     speaker_time_series = []  # Will hold (speaker, window_start, window_end, category_counts...)
     all_categories = set(category_words.keys()) | set(category_patterns.keys())
     
@@ -67,9 +70,10 @@ def analyze_text(transcript_path, output_speaker_dir, result_path, task_cutoff):
         # Filter transcript rows overlapping this window
         # Condition: utterance overlaps if start < window_end and end >= window_start
         df_window = transcript_df[
+            transcript_df['speaker'].isin(participant_speakers) &
             (transcript_df['end'] < window_end) &
-            (transcript_df['end']   >= window_start)
-        ]
+            (transcript_df['end'] >= window_start)
+            ]
         
         # We'll keep track of counts for each speaker → each category
         # e.g., speaker_category[speaker][category] = count
@@ -95,6 +99,10 @@ def analyze_text(transcript_path, output_speaker_dir, result_path, task_cutoff):
                         if pat.match(token):
                             speaker_category[speaker][cat] += 1
         
+        # Make an empty row if there are no speakers for this window
+        if len(df_window) == 0:
+            _ = speaker_category["None"]
+        
         # For each speaker we found in the current window, create a row
         # that includes category counts for all categories.
         # If a speaker has zero for a category, it won't appear in speaker_category,
@@ -116,8 +124,18 @@ def analyze_text(transcript_path, output_speaker_dir, result_path, task_cutoff):
     speaker_time_series_df.sort_values(by=['window_start','speaker'], inplace=True)
     
     # Output each individual speaker's time series as a separate CSV file
-    for speaker in speaker_time_series_df['speaker'].unique():
-        df_single = speaker_time_series_df[speaker_time_series_df['speaker'] == speaker]
+        for speaker in speaker_time_series_df[speaker_time_series_df['speaker'] != 'None']['speaker'].unique():
+        df_single = speaker_time_series_df[speaker_time_series_df['speaker'].isin([speaker, 'None'])]
+
+        missing_rows = speaker_time_series_df[~speaker_time_series_df['window_start'].isin(
+            df_single['window_start'])].groupby(['window_start', 'window_end']).agg(
+            {'speaker': (lambda x: "None"), **{col: (lambda x: 0) for col in speaker_time_series_df.columns if
+             col not in ['window_start', 'window_end', 'speaker']}}
+        )
+
+        df_single = pd.concat([df_single, missing_rows], ignore_index=True).sort_values(by=[
+            'window_start']).reset_index(drop=True)
+        
         # Build a filename for this speaker
         output_filename = f"{output_speaker_dir}/{speaker}_time_series.csv"
         df_single.to_csv(output_filename, index=False)
