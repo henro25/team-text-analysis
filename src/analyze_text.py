@@ -100,7 +100,7 @@ def analyze_text(transcript_path, output_speaker_dir, result_path, task_cutoff):
                             speaker_category[speaker][cat] += 1
         
         # Make an empty row if there are no speakers for this window
-        if len(df_window) == 0:
+        if len(df_window) == 0 or len(speaker_category) == 0:
             _ = speaker_category["None"]
         
         # For each speaker we found in the current window, create a row
